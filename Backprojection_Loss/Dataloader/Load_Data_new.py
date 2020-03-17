@@ -69,6 +69,7 @@ class LaneTestSet(Dataset):
 class LaneDataset(Dataset):
     """Dataset with labeled lanes"""
     def __init__(self, end_to_end, valid_idx, json_file, lanes_file, image_dir, gt_dir, flip_on, resize, nclasses):
+        global args
         """
         Args: valid_idx (list)  : Indices of validation images
               json_file (string): File with labels
@@ -78,7 +79,7 @@ class LaneDataset(Dataset):
               end_to_end (bool) : Boolean to compute lane line params end to end
               resize    (int)   : Height of resized image
         """
-        line_file = 'Labels/label_new.json'
+        line_file = 'culane/train_tusimple/label_new.json'
         self.image_dir = image_dir
         self.gt_dir = gt_dir
         self.valid_idx = valid_idx
@@ -105,7 +106,7 @@ class LaneDataset(Dataset):
         """
         Conventional len method
         """
-        return self.num_img
+        return self.num_imgs
 
     def __getitem__(self, idx):
         """
@@ -296,9 +297,9 @@ def my_collate(batch):
 
 
 def load_valid_set_file(valid_idx):
-    file1 = "Labels/label_data_0313.json"
-    file2 = "Labels/label_data_0531.json"
-    file3 = "Labels/label_data_0601.json"
+    file1 = "cuLabels/label_data_0313.json"
+    file2 = "cuLabels/label_data_0531.json"
+    file3 = "cuLabels/label_data_0601.json"
     labels_file1 = [json.loads(line) for line in open(file1).readlines()]
     labels_file2 = [json.loads(line) for line in open(file2).readlines()]
     labels_file3 = [json.loads(line) for line in open(file3).readlines()]
@@ -322,7 +323,7 @@ def load_valid_set_file(valid_idx):
 
 def load_valid_set_file_all(valid_idx, target_file, image_dir):
     # file1 = "Labels/Curve_parameters.json"
-    file1 = "Labels/label_data_all.json"
+    file1 = "culane/train_tusimple/label_data_all.json"
     labels_file = [json.loads(line) for line in open(file1).readlines()]
     content = sorted(os.listdir(image_dir))
     target_idx = [int(i.split('.')[0]) for i in content]
@@ -335,7 +336,7 @@ def load_valid_set_file_all(valid_idx, target_file, image_dir):
 
 
 def load_0313_valid_set_file(valid_idx, nclasses):
-    file1 = "Labels/label_data_0313.json"
+    file1 = "cuLabels/label_data_0313.json"
     labels_file1 = [json.loads(line) for line in open(file1).readlines()]
     with open('validation_set.json', 'w') as jsonFile:
         for image_id in valid_idx:

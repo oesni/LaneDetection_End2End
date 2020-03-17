@@ -72,8 +72,8 @@ def define_args():
     # Paths settings
     # parser.add_argument('--image_dir', type=str, default='/usr/data/tmp/Lane_Detection/DATASET/images/', help='directory to image dir')
     # parser.add_argument('--gt_dir', type=str, default='/usr/data/tmp/Lane_Detection/DATASET/ground_truth/', help='directory to gt')
-    parser.add_argument('--image_dir', type=str, required=True, help='directory to image dir')
-    parser.add_argument('--gt_dir', type=str, required=True, help='directory to gt')
+    parser.add_argument('--image_dir', type=str, default="", help='directory to image dir')
+    parser.add_argument('--gt_dir', type=str, default="", help='directory to gt')
     parser.add_argument('--test_dir', type=str, default='/usr/data/tmp/Lane_Detection/TESTSET/', help='Path to testset')
     parser.add_argument('--save_path', type=str, default='Saved/', help='directory to gt')
     parser.add_argument('--json_file', type=str, default='Labels/Curve_parameters.json', help='directory to json input')

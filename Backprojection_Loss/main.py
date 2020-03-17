@@ -78,7 +78,7 @@ def main():
     
 
     train_loader, valid_loader, valid_idx = get_loader(args.num_train,
-                                                       args.json_file, 'Labels/lanes_ordered.json',
+                                                       args.json_file, 'culane/train_tusimple/lanes_ordered.json',
                                                        args.image_dir, 
                                                        args.gt_dir,
                                                        args.flip_on, args.batch_size, args.val_batch_size,
@@ -236,7 +236,8 @@ def main():
         end = time.time()
 
         # Start training loop
-        for i, (input, gt, lanes, idx, gt_line, gt_horizon, valid_points) in tqdm(enumerate(train_loader)):
+        for aa in tqdm(enumerate(train_loader)):
+            i, (input, gt, lanes, idx, gt_line, gt_horizon, valid_points) = aa
             # Time dataloader
             data_time.update(time.time() - end)
 
