@@ -76,6 +76,8 @@ def main():
                     args.flip_on,
                     args.activation_layer)
     
+    if args.transfer:
+        save_id += "_transfer"
 
     train_loader, valid_loader, valid_idx = get_loader(args.num_train,
                                                        args.json_file, 'culane/train_tusimple/lanes_ordered.json',
@@ -167,6 +169,30 @@ def main():
             # Redirect stdout
             sys.stdout = Logger(os.path.join(args.save_path, log_file_name))
             print("=> no checkpoint found at '{}'".format(path))
+
+    # Transfer learning => load weight
+    elif args.transfer:
+        if os.path.isfile(args.transfer):
+            #TODO: check trained option first!!
+
+            print("=> loading checkpoint '{}'".format(args.transfer))
+            checkpoint = torch.load(args.transfer)
+            print("key is :", [key for key in checkpoint])
+            for key in checkpoint:
+                print(key+": ", checkpoint[key])
+            lowest_loss = checkpoint['loss']
+            model.load_state_dict(checkpoint['state_dict'])
+            optimizer.load_state_dict(checkpoint['optimizer'])
+            print("=> loaded checkpoint '{}'".format(args.transfer))
+
+            # Redirect stdout
+            sys.stdout = Logger(os.path.join(args.save_path, log_file_name))
+            pass
+
+        else:
+            print("=> no checkpoint found at {} for transfer learning".format(args.transfer))
+            log_file_name = 'log_train_start_0.txt'
+            sys.stdout = Logger(os.path.join(args.save_path, log_file_name))
 
     # Only evaluate
     elif args.evaluate:

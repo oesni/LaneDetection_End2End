@@ -96,6 +96,8 @@ def define_args():
     parser.add_argument('--save_freq', type=int, default=100, help='padding')
     # Skip batch
     parser.add_argument('--list', type=int, nargs='+', default=[954, 2789], help='Images you want to skip')
+    # Transfer learning
+    parser.add_argument('--transfer', type=str, help='pretrained weight for transfer learning')
     return parser
 
 
