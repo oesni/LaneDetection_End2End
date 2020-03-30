@@ -98,6 +98,8 @@ def main():
 
     if not args.no_cuda:
         # Load model on gpu before passing params to optimizer
+        if args.num_gpu:
+            torch.cuda.set_device(args.num_gpu)
         model = model.cuda()
 
     # Define optimizer and scheduler
@@ -177,9 +179,6 @@ def main():
 
             print("=> loading checkpoint '{}'".format(args.transfer))
             checkpoint = torch.load(args.transfer)
-            print("key is :", [key for key in checkpoint])
-            for key in checkpoint:
-                print(key+": ", checkpoint[key])
             lowest_loss = checkpoint['loss']
             model.load_state_dict(checkpoint['state_dict'])
             optimizer.load_state_dict(checkpoint['optimizer'])
