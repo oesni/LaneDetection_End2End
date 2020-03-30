@@ -91,6 +91,7 @@ def test_image(img_path):
 
     img = Image.open(img_path).convert('RGB')
     # img = F.resize(img, size=(1280, 720), interpolation=Image.BILINEAR)
+    img = img.resize((1280, 720))
     w, h = img.size
     img = F.crop(img, h-640, 0, 640, w)
     img = F.resize(img, size=(256, 512), interpolation=Image.BILINEAR)
@@ -241,6 +242,7 @@ if __name__ == '__main__':
     initialize_network("/home/inseo/Desktop/lane_project/LaneDetection_End2End/Backprojection_Loss/Saved_culane/Mod_erfnet_opt_adam_loss_backproject_lr_0.0001_batch_24_end2end_True_chol_False_lanes_4_pretrainFalse_clasTrue_mask0.2_flip_onFalse_activation_square_epoch_379/checkpoint_model_epoch_379.pth.tar")
     test_path = "/home/inseo/Desktop/lane_project/dataset/culane/test_tusimple/clips/05151652_0423.MP4/"
     images = glob.glob(os.path.join(test_path, "*.jpg"))
+    images.sort()
     for img in images:
         print(img)
         test_image(img)
