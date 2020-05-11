@@ -1,0 +1,1 @@
+python ros_inference.py --loss_policy backproject --save_freq 100 --weight_init xavier --use_cholesky 0 --split_percentage 0.1 --activation_layer square --nclasses 4 --mask_percentage 0.20 --order 3 --clas 1 --draw_testset
